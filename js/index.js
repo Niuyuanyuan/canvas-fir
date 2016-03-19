@@ -1,138 +1,182 @@
-window.onload=function()
-{
-  var canvas=document.querySelector('#canvas');
-  var ctx=canvas.getContext('2d');
+window.onload=function(){
+  var canvas = document.querySelector('#canvas');
+  var ctx = canvas.getContext('2d');
 
-  
-
-
-  for(var i=0;i<15;i++)
-  {
-    var shux=39;
+var begin = function(){
+  var y = 20.5;
+    for(var i=0;i<15;i++){
+    var li = ctx.createLinearGradient(0,0,560,0);
+    //(渐变开始的x轴,渐变开始的y轴,渐变结束的x轴,渐变结束的y轴)
+    li.addColorStop(0.3,'#ff6700');
+    li.addColorStop(1,'black');
+     // ctx.lineWidth = 6;
+        // ctx.lineCap = 'round';
+        // ctx.strokeStyle = lingrad;
+    ctx.strokeStyle = li;
     ctx.beginPath();
-    ctx.moveTo(27.5+shux*i,27);
-    ctx.lineTo(27.5+shux*i,573);
-    ctx.strokeStyle='blue';
+    ctx.moveTo(20.5,i*40+y);
+    ctx.lineTo(580,i*40+y);
     ctx.stroke();
-  }
-  for(var j=0;j<15;j++)
-  {
-    var heny=39;
+    }
+        var x = 20.5;
+    for(var i=0;i<15;i++){
+    var li = ctx.createLinearGradient(0,0,560,0);
+    li.addColorStop(0.3,'#000');
+    li.addColorStop(1,'#ff6700');
+    ctx.strokeStyle = li;
     ctx.beginPath();
-    ctx.moveTo(27,27.5+heny*j);
-    ctx.lineTo(573,27.5+heny*j);
-    ctx.strokeStyle='blue';
+    ctx.moveTo(x+i*40,20.5);
+    ctx.lineTo(x+i*40,580);
     ctx.stroke();
-  }
- 
-  ctx.beginPath();
-  ctx.arc(300.5,300.5,3,0,Math.PI*2);
-  ctx.fill();
-
-  var z=[144.5,456.5];
-  for(var i=0;i<z.length;i++)
-  {
-    for(var j=0;j<z.length;j++)
-    {
-      ctx.beginPath();
-      ctx.arc(z[i],z[j],3,0,Math.PI*2);
-      ctx.fill();
-    }
-  }
-
-
-//定义渐变色
-  /*var lingrad=ctx.createLinearGradient(20,300,580,300);
-  lingrad.addColorStop(0,'red');
-  lingrad.addColorStop(0.2,'orange');
-  lingrad.addColorStop(0.4,'yellow');
-  lingrad.addColorStop(0.6,'green');
-  lingrad.addColorStop(0.8,'blue');
-  lingrad.addColorStop(1,'purple');
-
-  ctx.lineWidth=6;
-  ctx.lineCap='round';
-  ctx.strokeStyle=lingrad;  
-  ctx.fillStyle=lingrad;
-
-//渐变线条
-  ctx.beginPath();
-  ctx.moveTo(0,300);
-  ctx.lineTo(600,300);
-  ctx.stroke();
-
-//渐变矩形
-  ctx.beginPath();
-  ctx.fillRect(50,50,200,200);*/
-
-
-
-
-    var luozi=function(x,y,color)
-    {
-      var zx=39*x+27.5;
-      var zy=39*y+27.5;
-      var black=ctx.createRadialGradient(zx,zy,1,zx,zy,18);
-      black.addColorStop(0.1,'#555');
-      black.addColorStop(1,'black');
-
-
-      var white=ctx.createRadialGradient(zx,zy,1,zx,zy,18);
-      white.addColorStop(0.1,'#fff');
-      white.addColorStop(1,'#ddd');
-
-      ctx.fillStyle=color?black:white;
-      ctx.shadowOffsetX=5;
-      ctx.shadowOffsetY=5;
-      ctx.shadowBlur=10;
-      ctx.shadowColor="rgba(0,0,0,0.5)";
-
-      ctx.beginPath();
-      ctx.arc(39*x+27.5,39*y+27.5,18,0,Math.PI*2);
-      ctx.fill();
-    }
-    /*luozi(3,3,true);
-    luozi(4,3,false);
-    luozi(7,7,true);*/
-
-    var qizi={};
-
-    var  kai=true;
-    canvas.onclick=function(e)
-    {
-      var x=Math.round((e.offsetX-27.5)/39);
-      var y=Math.round((e.offsetY-27.5)/39);
-     
-     if(qizi[x+'_'+y]){return;}
-
-      luozi(x,y,kai);
-      qizi[x+'_'+y]=kai?'black':'white';
-      kai=!kai;
-      
-      localStorage.data=JSON.stringify(qizi);//把qizi转换成字符串
     }
 
-   if(localStorage.data)
-   {
-    qizi=JSON.parse(localStorage.data);//把localStorage.data转换成对象
-    for(var i in qizi)
-    {
-      var x=i.split('_')[0];
-      var y=i.split('_')[1];
-      luozi(x,y,(qizi[i]=='black')?true:false);
-    }
-   }
+    ctx.beginPath();
+    ctx.arc(300.5,300.5,3,0,Math.PI*2);
+    ctx.fill();
+        var Z=[140.5,460.5];
+        for(var i = 0;i<Z.length;i++){
+          for(var j = 0;j<Z.length;j++){
+            ctx.beginPath();
+            ctx.arc(Z[i],Z[j],3,0,Math.PI*2);
+            ctx.fill();
+          }
+        }
+}
+begin();
 
-   //在空白处双击然后清除数据
-   canvas.ondblclick=function(e)
-   {
-    e.stopPropagation();
-   }
-   document.ondblclick=function()
-   {
-    localStorage.clear();
-    location.reload();
-   }
+
+  var canvas1 = document.querySelector('#canvas1');
+  var ctx1 = canvas1.getContext('2d');
+        var luozi = function(x,y,color){
+        var zx = 40*x + 20.5;
+        var zy = 40*y + 20.5;
+
+        var white = ctx1.createRadialGradient(zx-7,zy-7,1,zx,zy,18)
+        white.addColorStop(0.3,'#fff');
+        white.addColorStop(1,'#ccc');
+
+        var black = ctx1.createRadialGradient(zx-7,zy-7,1,zx,zy,18)
+        black.addColorStop(0.1,'#ccc');
+        black.addColorStop(1,'#000');
+
+        ctx1.fillStyle = color?black:white;
+        ctx1.beginPath();
+        ctx1.arc(40*x+20.5,40*y+20.5,17,0,Math.PI*2);
+        ctx1.fill();
+        }
+
+        var qizi = {};
+        var kaiguan  = localStorage.x?false:true;
+        canvas1.onclick=function(e){
+        var x = Math.round((e.offsetX-20.5)/40);
+        var y = Math.round((e.offsetY-20.5)/40);
+        if(qizi[x+'_'+y]){return;}
+        luozi(x,y,kaiguan)
+        qizi[x+'_'+y] = true;
+        kaiguan = !kaiguan;
+        qizi[x+'_'+y] = kaiguan?'black':'white';
+        localStorage.data = JSON.stringify(qizi);
+
+        if(kaiguan){
+        if( win(x,y,'black') ){
+          alert('白棋胜利');
+          if(confirm('是否再来一局?')){
+             localStorage.clear();
+             location.reload();
+             qizi = {};
+             kaiguan = true;
+             return;
+          }else{
+             canvas1.onclick  = null;
+          }
+        }
+      }else{
+        if( win(x,y,'white')){
+           alert('黑棋胜利');
+          if(confirm('是否再来一局?')){
+            localStorage.clear();
+            location.reload();
+            qizi = {};
+            kaiguan = true;
+            return;
+          }else{
+             canvas1.onclick  = null;
+          }
+        }
+      }
+
+      if(!kaiguan){
+          localStorage.x = 1;
+        }else{
+          localStorage.removeItem('x');
+        }
+
+        document.querySelector('.huiqi').onclick = function(){
+          var newqizi = {};//创建一个新对象
+          for(var i in qizi){
+            if(i != (x+'_'+y)){//把当前点击的棋子除去之后，将qizi对象重新复制给newqizi;
+              newqizi[i] = qizi[i];
+            }
+          }
+          qizi = newqizi;//再把newqizi重新复制给qizi，
+          kaiguan = !kaiguan;
+          ctx1.clearRect(x*40+3,y*40+3,35,35);//擦除刚才点击过的棋子
+        }
+    }
+
+
+      var win=function(x,y,color){
+        var shuju = filter(color);
+        var tx,ty,H = 1,S = 1,ZX = 1,YX= 1;
+
+        tx = x;ty = y;while(shuju[moshi(tx-1,ty)]){tx--;H++}
+        tx = x;ty = y;while(shuju[moshi(tx+1,ty)]){tx++;H++}
+        if(H >= 5){return true}
+
+        tx = x;ty = y;while(shuju[moshi(tx,ty-1)]){ty--;S++}
+        tx = x;ty = y;while(shuju[moshi(tx,ty+1)]){ty++;S++}
+        if(S >= 5){return true}
+
+        tx = x;ty = y;while(shuju[moshi(tx-1,ty-1)]){ty--;tx--;ZX++}
+        tx = x;ty = y;while(shuju[moshi(tx+1,ty+1)]){ty++;tx++;ZX++}
+        if(ZX >= 5){return true}
+
+        tx = x;ty = y;while(shuju[moshi(tx+1,ty-1)]){ty--;tx++;YX++}
+        tx = x;ty = y;while(shuju[moshi(tx-1,ty+1)]){ty++;tx--;YX++}
+        if(YX >= 5){return true}
+      }
+
+      var moshi = function(x,y){
+        return x+'_'+y;
+      }
+
+      var filter = function(color){
+        var r = {};
+        for(var i in qizi){
+          if(qizi[i] == color){
+             r[i] = qizi[i]
+          }
+        }
+        return r;
+      }
+
+      canvas1.ondblclick = function(ev){
+        ev.stopPropagation();
+      }
+
+      if(localStorage.data){
+        qizi = JSON.parse(localStorage.data);
+        for(var i in qizi){
+          var x = i.split('_')[0];
+          var y = i.split('_')[1];
+          luozi(x,y,(qizi[i]=='white')?true:false);
+        }
+      }
+
+      document.querySelector('.chongzhi').onclick = function(){
+        localStorage.clear();
+        location.reload();
+      }
 
 
 }
